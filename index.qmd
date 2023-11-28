@@ -1,1 +1,21 @@
 # Introduction
+Data used in this project is published by the United States Census Bureau, detailing the population's education attainment across different race, gender, and age groups. We aim to use the education attainment data from 2012 to 2021 to delve into trends in education, dissecting the evolution of education in the last decade by examining various demographic segments. 
+
+Education is fundamentally important for a person's development in the society.  An overview of educational status of a particular subset of the society thus offers lenses through which we can understand broader socio-economic dynamics and challenges. By analyzing the education attainment data, we can identify patterns and disparities in educational access and achievement among different demographic groups. This understanding can inform policy decisions, educational reforms, and targeted initiatives aimed at reducing educational inequalities and fostering a more inclusive and equitable society. Additionally, this analysis can highlight the progress or lack thereof in educational attainment, serving as a critical indicator of the nation's development and its ability to adapt to the demands of an ever-evolving global economy.
+
+Some interesting questions we seek to answer through our data visualizations:
+
+1. How has the educational attainment varied across different age groups over the last decade? (This question, of course, can be further explored with implication of gender and race)
+
+2. Which variables (age, gender, or race) play a statistically significant role in education attainment?
+
+3. How has education of the high school level, the undergraduate level and other degrees changed across the decade at discussion?
+
+4. Throughout the ten years, which race underwent the greatest change in education attainment? What does this implicate for the socio-economic dynamics of the United States?
+
+5. During the time of COVID, were there drastic/noticeable changes in education attainment?
+
+6. What do our plots implicate for the socio-economic dynamics of the United States? Or what potential policy direction is hinted at if there is any?
+
+
+
