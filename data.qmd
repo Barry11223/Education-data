@@ -1,4 +1,23 @@
 # Data
+We found our "Education Attainment in the United States" data from the U.S. Census Bureau's website. U.S. Census Bureau collected the data from the "Current Population Survey-Annual Social and Economic Supplement" and updated the Education Attainment data yearly. For the purpose of our project, we downloaded the first 6 Excel worksheets from the section "Table 1. Educational Attainment of the Population 18 Years and Over, by Age, Sex, Race, and Hispanic Origin" from their website for each year between 2012 and 2021. The first 6 Excel worksheets include the education attainment data for "All Races," "White Alone," "Non-Hispanic White Alone," "Black Alone," "Asian Alone," and "Hispanic (of any race)." 
+
+Each worksheet contains education attainment data for each gender and both, and across different age groups in the specific year. Specifically, each worksheet contains three tables: Both Sexes, Male and Female. Each table includes 14 rows of different age groups, including "18 years and over", "18 to 24 years", "25 years and over", “25 to 29 years", "30 to 34 years", “35 to 39 years”, “40 to 44 years”, “45 to 49 years”, “50 to 54 years”, “55 to 59 years”, “60 to 64 years”, “65 to 69 years”, “70 to 74 years”, and “ 75 years and over.” Each table contains 16 columns of different types of education attainment, including: “Total,” “None,” “1st - 4th grade,” “5th - 6th grade,” “7th - 8th grade,” “9th grade,” “10th grade,” “11th grade /2,” “High school graduate,” “Some college no degree,” “Associate's degree,” “occupational,” “Associate's degree,” “academic Bachelor's degree,” “Master's degree,” “Professional degree,” and “Doctoral degree.”
+
+We downloaded 6 Excel worksheets for each year between 2012 and 2021, with 60 worksheets in total. We plan to import them all into our repositories and write code to combine data from 2012 to 2021 for "All Races," "White Alone," "Non-Hispanic White Alone," "Black Alone," "Asian Alone," and "Hispanic (of any race)." Thus, after some manipulations, we will have six sup tables for each race category.
+
+We attached the link of our data source for each year between 2012 to 2021 below: 
+2012: https://www.census.gov/data/tables/2012/demo/educational-attainment/cps-detailed-tables.html
+2013: https://www.census.gov/data/tables/2013/demo/educational-attainment/cps-detailed-tables.html
+2014: https://www.census.gov/data/tables/2014/demo/educational-attainment/cps-detailed-tables.html
+2015: https://www.census.gov/data/tables/2015/demo/education-attainment/p20-578.html
+2016: https://www.census.gov/data/tables/2016/demo/education-attainment/cps-detailed-tables.html
+2017: https://www.census.gov/data/tables/2017/demo/education-attainment/cps-detailed-tables.html
+2018: https://www.census.gov/data/tables/2018/demo/education-attainment/cps-detailed-tables.html
+2019: https://www.census.gov/data/tables/2019/demo/educational-attainment/cps-detailed-tables.html
+2020: https://www.census.gov/data/tables/2020/demo/educational-attainment/cps-detailed-tables.html
+2021: https://www.census.gov/data/tables/2021/demo/educational-attainment/cps-detailed-tables.html 
+
+
 
 ## Description
 
