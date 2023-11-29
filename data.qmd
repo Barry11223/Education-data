@@ -45,7 +45,7 @@ Focus on the data from the years just before, during, and after the COVID-19 pan
 This question serves as a concluding question that we answer by aggregating our conclusion from previous plots.
 
 ## Missing value analysis
-```{r, echo=FALSE, warning=FALSE,results='hide'}
+```{r, echo=FALSE, warning=FALSE,results='hide',, message=FALSE}
 library(tidyverse)
 library(readxl)
 
