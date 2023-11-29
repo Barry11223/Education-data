@@ -120,7 +120,7 @@ plot_heatmap <- function(heatmap_matrix, title) {
   ggplot(heatmap_data, aes(Var1, Var2, fill = Freq)) +
     geom_tile() +
     scale_fill_gradient(low = "lightblue", high = "blue") +
-    labs(x = "Education Level", y = "Age Group", fill = "Count of '-'", title = title) +
+    labs(x = "Education Level", y = "Age Group", fill = "Count of Missing Data", title = title) +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 }
@@ -130,7 +130,12 @@ plot_heatmap(heatmap_both_sexes, "Missing Data Heatmap - Both Sexes")
 plot_heatmap(heatmap_male, "Missing Data Heatmap - Male")
 plot_heatmap(heatmap_female, "Missing Data Heatmap - Female")
 ```
-Here, we provided three heatmaps: "Missing Data Heatmap - Both Sexes", "Missing Data Heatmap - Male", "Missing Data Heatmap - Female." Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctora Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry.
+Here, we provided three heatmaps: "Missing Data Heatmap - Both Sexes", "Missing Data Heatmap - Male", "Missing Data Heatmap - Female." Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry. 
 
-In the "Missing Data Heatmap - Both Sexes"
+In our circumstances, a missing value may indicate that the Bureau didn't collect any data of a particular entry.
+Another case is that number of people in an entry is less than 1000, so that the Bureau didn't give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).
+
+In all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of all three heatmaps, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.
+
+There are also consistent huge proportions of missing value in area below 12th grade for all age groups, indicating that a lot of people didn't have a chance to go to high school across all years. 
 
