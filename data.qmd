@@ -18,52 +18,119 @@ We attached the link of our data source for each year between 2012 to 2021 below
 2021: https://www.census.gov/data/tables/2021/demo/educational-attainment/cps-detailed-tables.html 
 
 ## Description
+The raw data we have acquired is already categorized by race, with further subdivisions by gender and age ranges within each racial group. To address our research questions effectively, we will need to develop additional methods to segment this data. This approach will allow us to create targeted plots from these refined subsets, providing clear and direct visual answers to our research inquiries. Here is how we use the data to answer the research questions:
+
+1. How has the educational attainment varied across different age groups over the last decade? 
+
+Subset the data by educational attainments; for each education attainment and a specific age range, get a data subset of how a range group's specific education attainment changes across ten years
+
+2. Which variables (age, gender, or race) play a statistically significant role in education attainment?
+
+Create three separate subsets: one for each variable (age, gender, race). Within each subset, organize the data by different levels of educational attainment. 
+
+3. How has education of the high school level, the undergraduate level and other degrees changed across the decade at discussion?
+
+Group the data by education attainment: within each attainment category, get the total population that belong to that category in each year of the ten years. 
+
+4. Throughout the ten years, which race underwent the greatest change in education attainment? What does this implicate for the socio-economic dynamics of the United States?
+
+Use data that pertains to different races. Compare the distribution across different education attainment in each age range. 
+
+5. During the time of COVID, were there drastic/noticeable changes in education attainment?
+
+Focus on the data from the years just before, during, and after the COVID-19 pandemic. Create subsets for each of these time periods and compare them to identify any significant changes in educational attainment that might be attributed to the pandemic's impact.
+
+6. What do our plots implicate for the socio-economic dynamics of the United States? Or what potential policy direction is hinted at if there is any?
+
+This question serves as a concluding question that we answer by aggregating our conclusion from previous plots.
 
 ## Missing value analysis
-```{r,echo=FALSE, warning=FALSE}
-library(tidyverse)
-library(readxl)
-
-# Define the base path to the "Education Attainment" directory
-base_path <- "Education Attainment Data"
-
-# Generate the full file paths for the Excel files for each year and demographic group
-file_paths <- lapply(2012:2021, function(year) {
-  file.path(base_path, 
-            as.character(year), 
-            paste0(year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx"))
-}) %>% unlist()
-
-# Read all Excel files into a list of data frames
-datasets <- lapply(file_paths, read_excel)
-
-# Naming the list elements based on file names for easier reference
-names(datasets) <- basename(file_paths)
-
-```
-
-
-```{r}
+```{r, echo=False, warning=False}
 library(tidyverse)
 library(readxl)
 
 # Define the path to the folders
-base_path <- "/Education Attainment Data"
+base_path <- "Education Attainment Data"
 
-# Generate the full file paths for the Excel files for each year and demographic group
-file_paths <- lapply(2012:2021, function(year) {
-  file.path(base_path, 
-            as.character(year), 
-            paste0(year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx"))
+# Generate the full file paths for the Excel files for the year 2012 which has .xls files
+file_paths_2012 <- paste0(base_path, "/2012/2012_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xls")
+
+# Generate the full file paths for the Excel files for the years 2013-2021 which have .xlsx files
+file_paths_2013_2021 <- lapply(2013:2021, function(year) {
+  paste0(base_path, "/", year, "/", year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx")
 }) %>% unlist()
+
+# Combine all file paths
+file_paths <- c(file_paths_2012, file_paths_2013_2021)
 
 # Read all Excel files into a list of data frames
 datasets <- lapply(file_paths, read_excel)
 
 # Naming the list elements based on file paths for easier reference
 names(datasets) <- file_paths
+
 ```
+
 ```{r}
-a <- read_excel("Education Attainment Data/2013/2013_all_race.xlsx")
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# step 1: create lists of x-axis and y-axis names for each heatmap
+education_levels <- c("None", "1st - 4th grade", "5th - 6th grade", "7th - 8th grade", 
+                      "9th grade", "10th grade", "11th grade", "12th grade", "High school graduate", 
+                      "Some college no degree", "Associate's degree, occupational", 
+                      "Associate's degree, academic", "Bachelor's degree", "Master's degree", 
+                      "Professional degree", "Doctoral degree")
+
+age_groups <- c("18 years and over", "18 to 24 years", "25 years and over", "25 to 29 years", 
+                "30 to 34 years", "35 to 39 years", "40 to 44 years", "45 to 49 years", 
+                "50 to 54 years", "55 to 59 years", "60 to 64 years", "65 to 69 years", 
+                "70 to 74 years", "75 years and over")
+
+# step 2: initialize heatmaps (empty matrices) with dimensions based on x and y names
+heatmap_both_sexes <- matrix(0, nrow = length(age_groups), ncol = length(education_levels), 
+                             dimnames = list(age_groups, education_levels))
+heatmap_male <- matrix(0, nrow = length(age_groups), ncol = length(education_levels), 
+                       dimnames = list(age_groups, education_levels))
+heatmap_female <- matrix(0, nrow = length(age_groups), ncol = length(education_levels), 
+                         dimnames = list(age_groups, education_levels))
+
+# step 3: fill in the heatmaps by looping through each data frame
+for (df in datasets) {
+  df_both_sexes <- df[7:20, 2:17]  
+  df_male <- df[22:35, 2:17]       
+  df_female <- df[37:50, 2:17]     
+  
+  # replace "-" with NA for easier counting
+  df_both_sexes[df_both_sexes == "-"] <- NA
+  df_male[df_male == "-"] <- NA
+  df_female[df_female == "-"] <- NA
+  
+  # count the NAs and add to the heatmaps
+  heatmap_both_sexes <- heatmap_both_sexes + is.na(df_both_sexes)
+  heatmap_male <- heatmap_male + is.na(df_male)
+  heatmap_female <- heatmap_female + is.na(df_female)
+}
+
+# function to plot heatmap
+plot_heatmap <- function(heatmap_matrix, title) {
+  heatmap_data <- as.data.frame(as.table(heatmap_matrix))
+  ggplot(heatmap_data, aes(Var1, Var2, fill = Freq)) +
+    geom_tile() +
+    scale_fill_gradient(low = "lightblue", high = "blue") +
+    labs(x = "Education Level", y = "Age Group", fill = "Count of '-'", title = title) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+# Plot the heatmaps
+plot_heatmap(heatmap_both_sexes, "Missing Data Heatmap - Both Sexes")
+plot_heatmap(heatmap_male, "Missing Data Heatmap - Male")
+plot_heatmap(heatmap_female, "Missing Data Heatmap - Female")
 ```
+Here, we provided three heatmaps: "Missing Data Heatmap - Both Sexes", "Missing Data Heatmap - Male", "Missing Data Heatmap - Female." Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctora Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry.
+
+In the "Missing Data Heatmap - Both Sexes"
 
