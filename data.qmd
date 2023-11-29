@@ -136,5 +136,5 @@ Another case is that number of people in an entry is less than 1000, so that the
 
 In all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of all three heatmaps, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.
 
-There are also consistent huge proportions of missing value in area below 12th grade for all age groups, indicating that a lot of people didn't have a chance to go to high school across all years. 
+There are also consistent huge proportions of missing values in area below 12th grade for all age groups, indicating that a lot of people didn't have a chance to go to high school across all years. 
 
