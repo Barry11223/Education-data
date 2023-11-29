@@ -173,9 +173,123 @@ ul.task-list li input[type="checkbox"] {
 <p>We attached the link of our data source for each year between 2012 to 2021 below: 2012: https://www.census.gov/data/tables/2012/demo/educational-attainment/cps-detailed-tables.html 2013: https://www.census.gov/data/tables/2013/demo/educational-attainment/cps-detailed-tables.html 2014: https://www.census.gov/data/tables/2014/demo/educational-attainment/cps-detailed-tables.html 2015: https://www.census.gov/data/tables/2015/demo/education-attainment/p20-578.html 2016: https://www.census.gov/data/tables/2016/demo/education-attainment/cps-detailed-tables.html 2017: https://www.census.gov/data/tables/2017/demo/education-attainment/cps-detailed-tables.html 2018: https://www.census.gov/data/tables/2018/demo/education-attainment/cps-detailed-tables.html 2019: https://www.census.gov/data/tables/2019/demo/educational-attainment/cps-detailed-tables.html 2020: https://www.census.gov/data/tables/2020/demo/educational-attainment/cps-detailed-tables.html 2021: https://www.census.gov/data/tables/2021/demo/educational-attainment/cps-detailed-tables.html</p>
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
+<p>The raw data we have acquired is already categorized by race, with further subdivisions by gender and age ranges within each racial group. To address our research questions effectively, we will need to develop additional methods to segment this data. This approach will allow us to create targeted plots from these refined subsets, providing clear and direct visual answers to our research inquiries. Here is how we use the data to answer the research questions:</p>
+<ol type="1">
+<li>How has the educational attainment varied across different age groups over the last decade?</li>
+</ol>
+<p>Subset the data by educational attainments; for each education attainment and a specific age range, get a data subset of how a range group’s specific education attainment changes across ten years</p>
+<ol start="2" type="1">
+<li>Which variables (age, gender, or race) play a statistically significant role in education attainment?</li>
+</ol>
+<p>Create three separate subsets: one for each variable (age, gender, race). Within each subset, organize the data by different levels of educational attainment.</p>
+<ol start="3" type="1">
+<li>How has education of the high school level, the undergraduate level and other degrees changed across the decade at discussion?</li>
+</ol>
+<p>Group the data by education attainment: within each attainment category, get the total population that belong to that category in each year of the ten years.</p>
+<ol start="4" type="1">
+<li>Throughout the ten years, which race underwent the greatest change in education attainment? What does this implicate for the socio-economic dynamics of the United States?</li>
+</ol>
+<p>Use data that pertains to different races. Compare the distribution across different education attainment in each age range.</p>
+<ol start="5" type="1">
+<li>During the time of COVID, were there drastic/noticeable changes in education attainment?</li>
+</ol>
+<p>Focus on the data from the years just before, during, and after the COVID-19 pandemic. Create subsets for each of these time periods and compare them to identify any significant changes in educational attainment that might be attributed to the pandemic’s impact.</p>
+<ol start="6" type="1">
+<li>What do our plots implicate for the socio-economic dynamics of the United States? Or what potential policy direction is hinted at if there is any?</li>
+</ol>
+<p>This question serves as a concluding question that we answer by aggregating our conclusion from previous plots.</p>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:
+New names:</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Here, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree &amp; 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.</p>
+<p>In our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).</p>
+<p>In all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of all three heatmaps, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.</p>
+<p>There are also consistent huge proportions of missing value in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years.</p>
 
 
 </section>

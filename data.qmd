@@ -45,7 +45,7 @@ Focus on the data from the years just before, during, and after the COVID-19 pan
 This question serves as a concluding question that we answer by aggregating our conclusion from previous plots.
 
 ## Missing value analysis
-```{r, echo=False, warning=False}
+```{r, echo=FALSE, warning=FALSE,results='hide'}
 library(tidyverse)
 library(readxl)
 
@@ -68,10 +68,9 @@ datasets <- lapply(file_paths, read_excel)
 
 # Naming the list elements based on file paths for easier reference
 names(datasets) <- file_paths
-
 ```
 
-```{r}
+```{r,echo=FALSE}
 library(readxl)
 library(dplyr)
 library(tidyr)
