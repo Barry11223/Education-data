@@ -17,8 +17,6 @@ We attached the link of our data source for each year between 2012 to 2021 below
 2020: https://www.census.gov/data/tables/2020/demo/educational-attainment/cps-detailed-tables.html
 2021: https://www.census.gov/data/tables/2021/demo/educational-attainment/cps-detailed-tables.html 
 
-
-
 ## Description
 
 ## Missing value analysis
