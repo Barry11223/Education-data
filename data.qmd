@@ -20,3 +20,50 @@ We attached the link of our data source for each year between 2012 to 2021 below
 ## Description
 
 ## Missing value analysis
+```{r,echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+
+# Define the base path to the "Education Attainment" directory
+base_path <- "Education Attainment Data"
+
+# Generate the full file paths for the Excel files for each year and demographic group
+file_paths <- lapply(2012:2021, function(year) {
+  file.path(base_path, 
+            as.character(year), 
+            paste0(year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx"))
+}) %>% unlist()
+
+# Read all Excel files into a list of data frames
+datasets <- lapply(file_paths, read_excel)
+
+# Naming the list elements based on file names for easier reference
+names(datasets) <- basename(file_paths)
+
+```
+
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+# Define the path to the folders
+base_path <- "/Education Attainment Data"
+
+# Generate the full file paths for the Excel files for each year and demographic group
+file_paths <- lapply(2012:2021, function(year) {
+  file.path(base_path, 
+            as.character(year), 
+            paste0(year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx"))
+}) %>% unlist()
+
+# Read all Excel files into a list of data frames
+datasets <- lapply(file_paths, read_excel)
+
+# Naming the list elements based on file paths for easier reference
+names(datasets) <- file_paths
+```
+```{r}
+a <- read_excel("Education Attainment Data/2013/2013_all_race.xlsx")
+```
+
