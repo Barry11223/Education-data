@@ -46,7 +46,8 @@ This question serves as a concluding question that we answer by aggregating our 
 
 ## Missing value analysis
 ```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
-library(tidyverse)
+library(dplyr)
+library(purrr)
 library(readxl)
 
 # Define the path to the folders
@@ -56,7 +57,7 @@ base_path <- "Education Attainment Data"
 file_paths_2012 <- paste0(base_path, "/2012/2012_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xls")
 
 # Generate the full file paths for the Excel files for the years 2013-2021 which have .xlsx files
-file_paths_2013_2021 <- lapply(2013:2021, function(year) {
+file_paths_2013_2021 <- map(2013:2021, function(year) {
   paste0(base_path, "/", year, "/", year, "_", c("all_race", "asian", "black", "hispanic", "non_hispanic_white", "white"), ".xlsx")
 }) %>% unlist()
 
@@ -64,7 +65,7 @@ file_paths_2013_2021 <- lapply(2013:2021, function(year) {
 file_paths <- c(file_paths_2012, file_paths_2013_2021)
 
 # Read all Excel files into a list of data frames
-datasets <- lapply(file_paths, read_excel)
+datasets <- map(file_paths, read_excel)
 
 # Naming the list elements based on file paths for easier reference
 names(datasets) <- file_paths
