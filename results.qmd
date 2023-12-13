@@ -1,1 +1,195 @@
 # Results
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+## Import and Preprocess the data
+library(dplyr)
+library(purrr)
+library(readxl)
+
+# Define the path to the folders
+base_path <- "Education Attainment Data"
+
+# Generate the full file paths for the Excel files for the year 2012 which has .xls files
+file_paths_2012 <- paste0(base_path, "/2012/2012_", c("black"), ".xls")
+
+# Generate the full file paths for the Excel files for the years 2013-2021 which have .xlsx files
+file_paths_2013_2021 <- map(2013:2021, function(year) {
+  paste0(base_path, "/", year, "/", year, "_", c("black"), ".xlsx")
+}) %>% unlist()
+
+# Combine all file paths
+file_paths <- c(file_paths_2012, file_paths_2013_2021)
+
+# Read all Excel files into a list of data frames
+black_data <- map(file_paths, read_excel)
+
+# Naming the list elements based on file paths for easier reference
+names(black_data) <- file_paths
+```
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Extract column names from row 5, columns 2 to 17 of the first dataset
+
+merged_black_data <- lapply(seq_along(black_data), function(i) {
+  # Extract specific rows
+  tibble_data <- black_data[[i]] %>%
+    slice(c(23, 25:35, 38, 40:50))
+
+  # Add gender and year columns
+  tibble_data <- tibble_data %>%
+    mutate(gender = ifelse(row_number() <= 12, "male", "female"),
+           year = 2011 + i) %>%
+    # Move gender and year to the first two columns
+    select(gender, year, everything())
+
+  return(tibble_data)
+}) %>%
+  bind_rows()  # Combine all tibbles into one
+
+# Assign column names to merged_black_data
+col_name <- c("Gender", "Year","Age", "Total", "None", "1st - 4th grade", "5th - 6th grade",
+                           "7th - 8th grade", "9th grade", "10th grade", "11th grade",
+                           "High school graduate", "Some college, no degree", 
+                           "Associate's degree, occupational", "Associate's degree, academic",
+                           "Bachelor's degree", "Master's degree", "Professional degree",
+                           "Doctoral degree")
+
+colnames(merged_black_data ) <- col_name
+  
+merged_black_data[merged_black_data == "-"] <- NA
+
+education_levels <- c("Total", "None", "1st - 4th grade", "5th - 6th grade",
+                           "7th - 8th grade", "9th grade", "10th grade", "11th grade",
+                           "High school graduate", "Some college, no degree", 
+                           "Associate's degree, occupational", "Associate's degree, academic",
+                           "Bachelor's degree", "Master's degree", "Professional degree",
+                           "Doctoral degree")
+merged_black_data[, education_levels ] <- lapply(merged_black_data[, education_levels ], as.numeric)
+merged_black_data[is.na(merged_black_data)] <- 0
+```
+
+## line plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Calculate the Total Sum for each year and each gender
+total_sum <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarize(Total_Sum = sum(Total))
+
+# Calculate the sum for attaining a bachelor's degree or higher for each year and each gender
+higher_ed <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarize(Higher_Ed = sum(`Bachelor's degree`, `Master's degree`, `Professional degree`, `Doctoral degree`))
+
+# Create Dataframe 
+high_ed_df <- inner_join(total_sum, higher_ed, by = c("Year", "Gender"))
+
+# Calculate the percentage of attaining a bachelor's degree or higher for each year and each gender
+high_ed_df <- high_ed_df %>%
+  mutate(Percentage = (Higher_Ed / Total_Sum))
+```
+
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Draw the line plot with the specified y-axis range
+ggplot(high_ed_df, aes(x = Year, y = Percentage, color = Gender, group = Gender)) +
+  geom_line() +
+  scale_x_continuous(breaks = 2012:2021) + # Set breaks to show each year
+  scale_y_continuous(limits = c(0.1, 0.3), labels = scales::percent) + # Set y-axis limits and label format
+  labs(title = "Percentage of Black Individuals with a Bachelor's Degree or Higher",
+       x = "Year",
+       y = "Percentage") +
+  theme_minimal()
+```
+
+## stacked bar chart
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+# Assuming merged_black_data is your dataframe with the education data
+
+# Function to calculate percentages for each education level
+calculate_percentages <- function(data, gender) {
+  # Filter data for the specified gender
+  data_gender <- data %>% filter(Gender == gender)
+  
+  # Calculate the total sum for each year
+  total_sum <- data_gender %>% 
+    group_by(Year) %>% 
+    summarize(Total_Sum = sum(Total))
+  
+  # Calculate the sum for each education level and merge with total sum
+  education_levels <- c("None", "1st - 4th grade", "5th - 6th grade", "7th - 8th grade", 
+                        "9th grade", "10th grade", "11th grade", "High school graduate", 
+                        "Some college, no degree", "Associate's degree, occupational", 
+                        "Associate's degree, academic", "Bachelor's degree", "Master's degree", 
+                        "Professional degree", "Doctoral degree")
+  
+  percentages <- data_gender %>%
+    select(Year, one_of(education_levels)) %>%
+    group_by(Year) %>%
+    summarize_all(sum) %>%
+    left_join(total_sum, by = "Year") %>%
+    mutate(across(one_of(education_levels), ~ .x / Total_Sum))
+  
+  # Drop the Total_Sum column and add Gender
+  percentages <- percentages %>%
+    select(-Total_Sum) %>%
+    mutate(Gender = gender)
+  
+  return(percentages)
+}
+
+# Calculate percentages for each gender
+percentages_male <- calculate_percentages(merged_black_data, "male")
+percentages_female <- calculate_percentages(merged_black_data, "female")
+
+# Combine the data for both genders
+percentages_combined <- bind_rows(percentages_male, percentages_female)
+
+percentages_long <- percentages_combined %>%
+  gather(key = "Education_Attainment_Level", value = "Percentage", -Year, -Gender)
+```
+
+
+```{r}
+library(ggplot2)
+library(forcats)
+
+# Adjust the order of Education_Level
+education_levels_ordered <- c("None", "1st - 4th grade", "5th - 6th grade", "7th - 8th grade", 
+                              "9th grade", "10th grade", "11th grade", "High school graduate", 
+                              "Some college, no degree", "Associate's degree, occupational", 
+                              "Associate's degree, academic", "Bachelor's degree", "Master's degree", 
+                              "Professional degree", "Doctoral degree")
+
+percentages_long$Education_Level <- factor(percentages_long$Education_Attainment_Level, 
+                                           levels = education_levels_ordered)
+
+# Create a color palette that corresponds to the order of Education_Level
+color_palette <- viridis::viridis(length(education_levels_ordered), option = "viridis")
+
+# Plotting the stacked bar chart for Male with ordered colors
+ggplot(subset(percentages_long, Gender == "male"), 
+       aes(x = Year, y = Percentage, fill = Education_Attainment_Level)) +
+  geom_bar(stat = "identity") +
+  scale_x_continuous(breaks = 2012:2021) + 
+  scale_fill_manual(values = color_palette) +
+  labs(title = "Percentage of Each Education Attainment Level for Male", 
+       x = "Year", 
+       y = "Percentage") +
+  theme_minimal()
+
+# Plotting the stacked bar chart for Female with ordered colors
+ggplot(subset(percentages_long, Gender == "female"), 
+       aes(x = Year, y = Percentage, fill = Education_Attainment_Level)) +
+  geom_bar(stat = "identity") + 
+  scale_x_continuous(breaks = 2012:2021) + 
+  scale_fill_manual(values = color_palette) +
+  labs(title = "Percentage of Each Education Attainment Level for Female", 
+       x = "Year", 
+       y = "Percentage") +
+  theme_minimal()
+
+```
+
