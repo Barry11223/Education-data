@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Education Across Different Demographics",
     "section": "",
-    "text": "1 Introduction\nData used in this project is published by the United States Census Bureau, detailing the population’s education attainment across different race, gender, and age groups. We aim to use the education attainment data from 2012 to 2021 to delve into trends in education, dissecting the evolution of education in the last decade by examining various demographic segments.\nEducation is fundamentally important for a person’s development in the society. An overview of educational status of a particular subset of the society thus offers lenses through which we can understand broader socio-economic dynamics and challenges. By analyzing the education attainment data, we can identify patterns and disparities in educational access and achievement among different demographic groups. This understanding can inform policy decisions, educational reforms, and targeted initiatives aimed at reducing educational inequalities and fostering a more inclusive and equitable society. Additionally, this analysis can highlight the progress or lack thereof in educational attainment, serving as a critical indicator of the nation’s development and its ability to adapt to the demands of an ever-evolving global economy.\nSome interesting questions we seek to answer through our data visualizations:\n\nHow has the educational attainment varied across different age groups over the last decade? (This question, of course, can be further explored with implication of gender and race)\nWhich variables (age, gender, or race) play a statistically significant role in education attainment?\nHow has education of the high school level, the undergraduate level and other degrees changed across the decade at discussion?\nThroughout the ten years, which race underwent the greatest change in education attainment? What does this implicate for the socio-economic dynamics of the United States?\nDuring the time of COVID, were there drastic/noticeable changes in education attainment?\nWhat do our plots implicate for the socio-economic dynamics of the United States? Or what potential policy direction is hinted at if there is any?"
+    "text": "1 Introduction\nData used in this project is published by the United States Census Bureau, detailing the population’s education attainment across different race, gender, and age groups. We aim to use the education attainment data from 2012 to 2021 to delve into trends in education, dissecting the evolution of education in the last decade by examining various demographic segments.\nEducation is fundamentally significant for a person’s development in the society. An overview of educational status of a particular subset of the society thus offers lenses through which we can understand broader socio-economic dynamics and challenges. By analyzing the education attainment data, we can identify patterns and disparities in educational access and achievement among different demographic groups. This understanding can inform policy decisions, educational reforms, and targeted initiatives aimed at reducing educational inequalities and fostering a more inclusive and equitable society. Additionally, this analysis can highlight the progress or lack thereof in educational attainment, serving as a critical indicator of the nation’s development and its ability to adapt to the demands of an ever-evolving global economy.\nSome interesting questions we seek to answer through our data visualizations:\n\nHow has the educational attainment varied across different age groups over the last decade? (This question, of course, can be further explored with implication of gender and race)\nWhich variables (age, gender, or race) play a statistically significant role in education attainment?\nHow has education of the high school level, the undergraduate level and other degrees changed across the decade at discussion?\nThroughout the ten years, which race underwent the greatest change in education attainment? What does this implicate for the socio-economic dynamics of the United States?\nDuring the time of COVID, were there drastic/noticeable changes in education attainment?\nWhat do our plots implicate for the socio-economic dynamics of the United States? Or what potential policy direction is hinted at if there is any?"
   },
   {
     "objectID": "data.html#description",
@@ -18,6 +18,55 @@
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
     "section": "2.2 Missing value analysis",
-    "text": "2.2 Missing value analysis\n\n\n\n\n\n\n\n\n\n\n\nHere, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.\nIn our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).\nIn all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of all three heatmaps, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.\nThere are also consistent huge proportions of missing value in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years."
+    "text": "2.2 Missing value analysis\n\n\n\n\n\n\n\n\n\n\n\nHere, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.\nIn our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).\nIn all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of all three heatmaps, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.\nThere are also consistent huge proportions of missing values in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years."
+  },
+  {
+    "objectID": "results.html#line-plot",
+    "href": "results.html#line-plot",
+    "title": "3  Results",
+    "section": "3.1 Line Plot",
+    "text": "3.1 Line Plot"
+  },
+  {
+    "objectID": "results.html#stacked-bar-chart",
+    "href": "results.html#stacked-bar-chart",
+    "title": "3  Results",
+    "section": "3.2 Stacked Bar Chart",
+    "text": "3.2 Stacked Bar Chart"
+  },
+  {
+    "objectID": "results.html#heatmap",
+    "href": "results.html#heatmap",
+    "title": "3  Results",
+    "section": "3.3 Heatmap",
+    "text": "3.3 Heatmap"
+  },
+  {
+    "objectID": "results.html#mosaic-plot",
+    "href": "results.html#mosaic-plot",
+    "title": "3  Results",
+    "section": "3.4 Mosaic Plot",
+    "text": "3.4 Mosaic Plot"
+  },
+  {
+    "objectID": "results.html#area-plot",
+    "href": "results.html#area-plot",
+    "title": "3  Results",
+    "section": "3.5 Area Plot",
+    "text": "3.5 Area Plot"
+  },
+  {
+    "objectID": "results.html#bar-plot",
+    "href": "results.html#bar-plot",
+    "title": "3  Results",
+    "section": "3.6 Bar Plot",
+    "text": "3.6 Bar Plot"
+  },
+  {
+    "objectID": "results.html#parallel-coordinate-plot",
+    "href": "results.html#parallel-coordinate-plot",
+    "title": "3  Results",
+    "section": "3.7 Parallel Coordinate Plot",
+    "text": "3.7 Parallel Coordinate Plot"
   }
 ]
