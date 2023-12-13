@@ -65,9 +65,14 @@ education_levels <- c("Total", "None", "1st - 4th grade", "5th - 6th grade",
                            "Doctoral degree")
 merged_black_data[, education_levels ] <- lapply(merged_black_data[, education_levels ], as.numeric)
 merged_black_data[is.na(merged_black_data)] <- 0
+
+merged_black_data$Age <- sub("\\.\\.", "", merged_black_data$Age)
+
+merged_black_data$Age <- factor(merged_black_data$Age, 
+                                levels = unique(merged_black_data$Age))
 ```
 
-## line plot
+## Line Plot
 ```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
 # Calculate the Total Sum for each year and each gender
 total_sum <- merged_black_data %>%
@@ -100,8 +105,8 @@ ggplot(high_ed_df, aes(x = Year, y = Percentage, color = Gender, group = Gender)
   theme_minimal()
 ```
 
-## stacked bar chart
-```{r}
+## Stacked Bar Chart
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
 library(dplyr)
 library(ggplot2)
 library(tidyr)
@@ -152,7 +157,7 @@ percentages_long <- percentages_combined %>%
 ```
 
 
-```{r}
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
 library(ggplot2)
 library(forcats)
 
@@ -163,7 +168,7 @@ education_levels_ordered <- c("None", "1st - 4th grade", "5th - 6th grade", "7th
                               "Associate's degree, academic", "Bachelor's degree", "Master's degree", 
                               "Professional degree", "Doctoral degree")
 
-percentages_long$Education_Level <- factor(percentages_long$Education_Attainment_Level, 
+percentages_long$Education_Attainment_Level <- factor(percentages_long$Education_Attainment_Level, 
                                            levels = education_levels_ordered)
 
 # Create a color palette that corresponds to the order of Education_Level
@@ -193,3 +198,34 @@ ggplot(subset(percentages_long, Gender == "female"),
 
 ```
 
+## Heatmap
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+library(ggplot2)
+# Function to create heatmap for a given gender
+create_heatmap <- function(data, gender) {
+    data_gender <- data %>%
+    filter(Gender == gender) %>%
+    select(Year, Age, `Doctoral degree`)
+    
+  # Create heatmap
+  ggplot(data_gender, aes(x = Year, y = Age, fill = `Doctoral degree`)) +
+    geom_tile() + 
+    scale_x_continuous(breaks = 2012:2021) + 
+    scale_fill_gradient(low = "white", high = "blue") +
+    labs(title = paste("Number of Black Individuals with a Doctoral Degree (", gender, ")", sep = ""),
+         x = "Year",
+         y = "Age Group") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) # Rotate x-axis labels for readability
+}
+
+# Create heatmap for Male
+heatmap_male <- create_heatmap(merged_black_data, "male")
+
+# Create heatmap for Female
+heatmap_female <- create_heatmap(merged_black_data, "female")
+
+# Print the heatmaps
+heatmap_male
+heatmap_female
+```
