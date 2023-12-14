@@ -1,1 +1,374 @@
 # Results
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Import all libraries 
+library(dplyr)
+library(purrr)
+library(readxl)
+library(ggplot2)
+library(tidyr)
+library(forcats)
+```
+
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Define the path to the folders
+base_path <- "Education Attainment Data"
+
+# Generate the full file paths for the Excel files for the year 2012 which has .xls files
+file_paths_2012 <- paste0(base_path, "/2012/2012_", c("black"), ".xls")
+
+# Generate the full file paths for the Excel files for the years 2013-2021 which have .xlsx files
+file_paths_2013_2021 <- map(2013:2021, function(year) {
+  paste0(base_path, "/", year, "/", year, "_", c("black"), ".xlsx")
+}) %>% unlist()
+
+# Combine all file paths
+file_paths <- c(file_paths_2012, file_paths_2013_2021)
+
+# Read all Excel files into a list of data frames
+black_data <- map(file_paths, read_excel)
+
+# Name the list elements based on file paths for easier reference
+names(black_data) <- file_paths
+```
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+merged_black_data <- lapply(seq_along(black_data), function(i) {
+  # extract specific rows
+  tibble_data <- black_data[[i]] %>%
+    slice(c(23, 25:35, 38, 40:50))
+  # add gender and year columns
+  tibble_data <- tibble_data %>%
+    mutate(gender = ifelse(row_number() <= 12, "male", "female"),
+           year = 2011 + i) %>%
+  # move gender and year to the first two columns
+    select(gender, year, everything())
+
+  return(tibble_data)
+}) %>%
+  bind_rows()  
+
+# Assign column names to merged_black_data
+col_name <- c("Gender", "Year","Age", "Total", "None", "1st - 4th grade", "5th - 6th grade",
+                           "7th - 8th grade", "9th grade", "10th grade", "11th grade",
+                           "High school graduate", "Some college, no degree", 
+                           "Associate's degree, occupational", "Associate's degree, academic",
+                           "Bachelor's degree", "Master's degree", "Professional degree",
+                           "Doctoral degree")
+
+colnames(merged_black_data ) <- col_name
+  
+# Reformat the merged_black_data
+education_levels <- c("Total", "None", "1st - 4th grade", "5th - 6th grade",
+                           "7th - 8th grade", "9th grade", "10th grade", "11th grade",
+                           "High school graduate", "Some college, no degree", 
+                           "Associate's degree, occupational", "Associate's degree, academic",
+                           "Bachelor's degree", "Master's degree", "Professional degree",
+                           "Doctoral degree")
+
+merged_black_data[merged_black_data == "-"] <- NA
+merged_black_data[, education_levels ] <- lapply(merged_black_data[, education_levels ], as.numeric)
+merged_black_data$Age <- sub("\\.\\.", "", merged_black_data$Age)
+merged_black_data$Age <- factor(merged_black_data$Age, 
+                                levels = unique(merged_black_data$Age))
+merged_black_data[is.na(merged_black_data)] <- 0
+```
+
+## Line Plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Calculate the Total Sum for each year and each gender
+total_sum <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarize(Total_Sum = sum(Total))
+
+# Calculate the sum for attaining a bachelor's degree or higher for each year and each gender
+higher_ed <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarize(Higher_Ed = sum(`Bachelor's degree`, `Master's degree`, `Professional degree`, `Doctoral degree`))
+
+# Create Dataframe 
+high_ed_df <- inner_join(total_sum, higher_ed, by = c("Year", "Gender"))
+
+# Calculate the percentage of attaining a bachelor's degree or higher for each year and each gender
+high_ed_df <- high_ed_df %>%
+  mutate(Percentage = (Higher_Ed / Total_Sum))
+
+# Draw the line plot with the specified y-axis range
+ggplot(high_ed_df, aes(x = Year, y = Percentage, color = Gender, group = Gender)) +
+  geom_line() +
+  scale_x_continuous(breaks = 2012:2021) + 
+  scale_y_continuous(limits = c(0.1, 0.3), labels = scales::percent) + 
+  labs(title = "Percentage of Black Individuals with a Bachelor's Degree or Higher",
+       x = "Year",
+       y = "Percentage") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme_minimal()
+```
+## Bar Plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+none_percent_by_year_gender <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarise(
+    Total_None = sum(`None`, na.rm = TRUE), 
+    Total = sum(`Total`, na.rm = TRUE),  
+    .groups = "drop"
+  ) %>%
+  mutate(Percent_None = (Total_None / Total) )
+
+# Create the grouped bar plot showing percentages
+percent_bar_plot <- ggplot(none_percent_by_year_gender, aes(x = as.factor(Year), y = Percent_None, fill = Gender)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.7)) +
+  labs(x = "Year", y = "Percentage of People with No Education History", title = "Percentage of People with No Education History by Year and Gender") +
+  scale_fill_manual(values = c("pink", "blue")) +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Print the grouped bar plot
+print(percent_bar_plot)
+```
+
+## Heatmap
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Create function for creating heatmap
+create_heatmap <- function(data, gender) {
+    data_gender <- data %>%
+    filter(Gender == gender) %>%
+    select(Year, Age, `Doctoral degree`)
+    
+  # Create heatmap
+  ggplot(data_gender, aes(x = Year, y = Age, fill = `Doctoral degree`)) +
+    geom_tile() + 
+    scale_x_continuous(breaks = 2012:2021) + 
+    scale_fill_gradient(low = "white", high = "blue") +
+    labs(title = paste("Number of Black Individuals with a Doctoral Degree (", gender, ")", sep = ""),
+         x = "Year",
+         y = "Age Group",
+         fill = "Doctoral Degree (Numbers)") +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+}
+
+# Create heatmap for Male
+heatmap_male <- create_heatmap(merged_black_data, "male")
+
+# Create heatmap for Female
+heatmap_female <- create_heatmap(merged_black_data, "female")
+
+# Print the heatmaps
+heatmap_male
+heatmap_female
+```
+## Mosaic Plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Calculate the sum of "Bachelor or above" and "below Bachelor" correctly
+education_summary <- merged_black_data %>%
+  mutate(`Bachelor or above` = `Bachelor's degree` + `Master's degree` + `Professional degree` + `Doctoral degree`) %>%
+  group_by(Gender, Year) %>%
+  summarize(`Bachelor's Degree or higher` = sum(`Bachelor or above`),
+            `Below Bachelor's Degree` = sum(Total) - sum(`Bachelor or above`),
+            .groups = 'drop')
+
+# Reshape the data for plotting
+education_long <- education_summary %>%
+  pivot_longer(cols = c(`Bachelor's Degree or higher`, `Below Bachelor's Degree`), names_to = "Education Level", values_to = "Count")
+
+# Create the Mosaic plot
+ggplot(education_long, aes(x = Gender, y = Count, fill = `Education Level`)) +
+  geom_bar(stat = "identity", position = "fill") +
+  labs(title = "Education Attainment Level by Gender",
+       x = "Gender",
+       y = "Proportion of Education Attainment",
+       fill = "Education Attainment Level") +
+  theme_minimal() +
+  scale_fill_manual(values = c("blue", "pink"))+
+  theme(plot.title = element_text(hjust = 0.5))+
+  facet_wrap(~Year)  # Optional: add facets for each year if desired
+```
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Define Pandemic Periods
+pre_pandemic_years <- c(2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019)
+pandemic_years <- c(2020, 2021)
+
+# Filter and mutate the dataframe by Pandemic Period
+education_data <- merged_black_data %>%
+  mutate(Period = case_when(
+    Year %in% pre_pandemic_years ~ "Before Pandemic",
+    Year %in% pandemic_years ~ "During Pandemic",
+    TRUE ~ as.character(Year)
+  )) %>%
+  group_by(Period, Gender) %>%
+  summarize(
+    `Bachelor's Degree or higher` = sum(`Bachelor's degree`, `Master's degree`, `Professional degree`, `Doctoral degree`),
+    `Below Bachelor's Degree` = sum(Total) - sum(`Bachelor's degree`, `Master's degree`, `Professional degree`, `Doctoral degree`),
+    .groups = 'drop'
+  ) %>%
+  pivot_longer(cols = c(`Bachelor's Degree or higher`, `Below Bachelor's Degree`), names_to = "Education Level", values_to = "Count")
+
+# Create the Mosaic plot
+ggplot(education_data, aes(x = Period, fill = `Education Level`, y = Count)) +
+  geom_bar(stat = "identity", position = "fill") +
+  scale_fill_manual(values = c("blue", "pink"))+
+  labs(title = "Education Attainment Level by Pandemic Period",
+       x = "Pandemic Period",
+       y = "Proportion of Education Attainment",
+       fill = "Education Attainment Level") +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+## Area Plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Calculate the sum of each education level per year for the desired categories
+education_categories_gender <- merged_black_data %>%
+  group_by(Year, Gender) %>%
+  summarise(
+    `Less than High School` = sum(`None`, `1st - 4th grade`, `5th - 6th grade`,
+                                  `7th - 8th grade`, `9th grade`, `10th grade`, 
+                                  `11th grade`, na.rm = TRUE),
+    `High School or Some College` = sum(`High school graduate`, 
+                                        `Some college, no degree`, na.rm = TRUE),
+    `Bachelor's Degree or Higher` = sum(`Associate's degree, occupational`, 
+                                        `Associate's degree, academic`, 
+                                        `Bachelor's degree`, `Master's degree`, 
+                                        `Professional degree`, `Doctoral degree`, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(Total = `Less than High School` + `High School or Some College` + `Bachelor's Degree or Higher`) %>%
+  mutate(across(`Less than High School`:`Bachelor's Degree or Higher`, ~ .x / Total * 100))
+
+# Reshape the data to long format for plotting
+long_data_gender <- education_categories_gender %>%
+  pivot_longer(
+    cols = `Less than High School`:`Bachelor's Degree or Higher`, 
+    names_to = "Education_Category", 
+    values_to = "Percentage"
+  )
+
+# Function to plot the area chart
+plot_area <- function(data, gender_filter, title_suffix) {
+  filtered_data <- data %>%
+    filter(Gender == gender_filter)
+  
+  ggplot(filtered_data, aes(x = Year, y = Percentage, fill = Education_Category)) +
+    geom_area(position = 'stack') +
+    scale_fill_brewer(palette = "Pastel1", name = "Education Attainment Level") +
+    labs(title = paste("Percentage of Educational Attainment Level Over Years -", title_suffix), 
+         x = "Year", 
+         y = "Proportion of Education Attainment Level"
+         ) +
+    theme_minimal()+
+    theme(plot.title = element_text(hjust = 0.5))
+}
+
+# Create the plots for Female and Male
+area_plot_female <- plot_area(long_data_gender, "female", "Female")
+area_plot_male <- plot_area(long_data_gender, "male", "Male")
+
+# Print the plots
+print(area_plot_female)
+print(area_plot_male)
+```
+
+## Parallel Coordinate Plot
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+# Process the data
+merged_data <- lapply(seq_along(black_data), function(i) {
+  tibble_data <- black_data[[i]] %>%
+    slice(c(23, 25:35, 38, 40:50))
+
+  tibble_data <- tibble_data %>%
+    mutate(gender = ifelse(row_number() <= 12, "male", "female"),
+           year = 2011 + i)
+
+  return(tibble_data)
+}) %>%
+  bind_rows()  
+colnames(merged_data) <- c("Age", "Total", "None", "1st - 4th grade", "5th - 6th grade",
+                           "7th - 8th grade", "9th grade", "10th grade", "11th grade",
+                           "High school graduate", "Some college, no degree", 
+                           "Associate's degree, occupational", "Associate's degree, academic",
+                           "Bachelor's degree", "Master's degree", "Professional degree",
+                           "Doctoral degree", "Gender", "Year")
+
+# Define the function to process merged_data
+process_data <- function(data) {
+  # Get the range of columns to apply the conversion
+  cols_to_convert <- 2:(ncol(data) - 2) # from second to third last column
+  
+  data <- data %>%
+    mutate(across(all_of(cols_to_convert), ~na_if(.x, "-"))) %>%  # Replace '-' with NA
+    mutate(across(all_of(cols_to_convert), as.numeric))  # Convert the columns to numeric
+
+  # Return the processed data
+  return(data)
+}
+
+# Apply the function to merged_data
+processed_merged_data <- process_data(merged_data)
+```
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+## Male
+male_2012_data <- processed_merged_data %>% 
+  filter(Gender == "male", Year %in% c(2021, 2012))
+
+# Reshape data from wide to long format, including only the specified education levels
+long_data_male <- male_2012_data %>%
+  select(Age, Gender, Year, `High school graduate`, `Bachelor's degree`, `Master's degree`, `Doctoral degree`) %>%
+  gather(key = "Education_Level", value = "Value", -Age, -Gender, -Year)
+
+# Convert Education_Level to a factor and set the levels in the desired order
+long_data_male$Education_Level <- factor(long_data_male$Education_Level, 
+                                    levels = c("High school graduate", 
+                                               "Bachelor's degree", "Master's degree" , "Doctoral degree"))
+
+# Parallel coordinate plot
+p_male <- ggplot(long_data_male, aes(x = Education_Level, y = Value, group = Age, color = as.factor(Year))) +
+  geom_line() +  
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "High School and Higher for Black Male in 2012 and 2021 for all age groups", color = "Year", 
+       xlab="Educational Attainment Levle",
+       ylab = "Count")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+# Print the plot
+print(p_male)
+```
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message=FALSE}
+## Female
+# Filter for females in the year 2012
+female_2012_data <- processed_merged_data %>% 
+  filter(Gender == "female", Year %in% c(2021, 2012))
+
+# Reshape data from wide to long format, including only the specified education levels
+long_data_female <- female_2012_data %>%
+  select(Age, Gender, Year, `High school graduate`, `Bachelor's degree`, `Master's degree`, `Doctoral degree`) %>%
+  gather(key = "Education_Level", value = "Value", -Age, -Gender, -Year)
+
+# Convert Education_Level to a factor and set the levels in the desired order
+long_data_female$Education_Level <- factor(long_data_female$Education_Level, 
+                                    levels = c("High school graduate", 
+                                               "Bachelor's degree", "Master's degree" , "Doctoral degree"))
+
+# Parallel coordinate plot
+p_female <- ggplot(long_data_female, aes(x = Education_Level, y = Value, group = Age, color = as.factor(Year))) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "High School and Higher for Black Female in 2012 and 2021 for all age groups", color = "Year",
+       xlab="Educational Attainment Levle",
+       ylab = "Count")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+# Print the plot
+print(p_female)
+```
+
+
+
+
+
