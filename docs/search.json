@@ -18,63 +18,7 @@
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
     "section": "2.2 Missing value analysis",
-    "text": "2.2 Missing value analysis\n\n\n\n\n\n\n\n\n\n\n\nIn this missing value analysis, we analyze missing values for data sets not limited to “Black only” data sets for a better understanding for patterns in missing values. Missing values across data from all race renders a better idea of why certain data is missing despite missing values from the “Black only” data sets is scarce. Here, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.\nIn our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).\nIn all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of heatmaps for Male and Female, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.\nThere are also consistent huge proportions of missing values in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years."
-  },
-  {
-    "objectID": "results.html#line-plot",
-    "href": "results.html#line-plot",
-    "title": "3  Results",
-    "section": "3.1 Line Plot",
-    "text": "3.1 Line Plot\n\n\n\n\n\nResearch Question: What is the difference in the percentage of individuals attaining a bachelor’s degree or higher changed over the last decade between black male and black female?\nWe created a line plot to explore this research question. From the plot, we observed a clear upward trend in the percentage of both black males and black females attaining a bachelor’s degree or higher over the decade. This suggests improvements in higher educational attainment levels for both genders in the last decades in the black community.\nThroughout the entire period, black females consistently show a higher percentage of attaining a bachelor’s degree or higher compared to black males. This indicates that black females may have more access to higher education, or there may be factors that enable higher educational attainment among females in the black community.\nThe gap between the genders appears to be consistent or slightly widening over the years. The plot does not show any convergence between the genders; instead, the distance between the two lines suggests that the rate of increase in educational attainment may be slightly higher for black females than for black males."
-  },
-  {
-    "objectID": "results.html#stacked-bar-chart",
-    "href": "results.html#stacked-bar-chart",
-    "title": "3  Results",
-    "section": "3.2 Stacked Bar Chart",
-    "text": "3.2 Stacked Bar Chart"
-  },
-  {
-    "objectID": "results.html#heatmap",
-    "href": "results.html#heatmap",
-    "title": "3  Results",
-    "section": "3.3 Heatmap",
-    "text": "3.3 Heatmap"
-  },
-  {
-    "objectID": "results.html#mosaic-plot",
-    "href": "results.html#mosaic-plot",
-    "title": "3  Results",
-    "section": "3.4 Mosaic Plot",
-    "text": "3.4 Mosaic Plot"
-  },
-  {
-    "objectID": "results.html#area-plot",
-    "href": "results.html#area-plot",
-    "title": "3  Results",
-    "section": "3.5 Area Plot",
-    "text": "3.5 Area Plot"
-  },
-  {
-    "objectID": "results.html#bar-plot",
-    "href": "results.html#bar-plot",
-    "title": "3  Results",
-    "section": "3.2 Bar Plot",
-    "text": "3.2 Bar Plot\n\n\n\n\n\nResearch Question: What is the difference in the percentage of black individuals attaining nothing changed over the last decade between black male and black female?\nWe created a side by side bar chart to explore this research question. From the plot, we observed that black males have higher percentages of having no education history compared to black females from 2012 to 2014. However, from 2015 to 2020, black female have higher percentages of having no education history compared to black males. This may indicate that black males are more likely to engage in educational opportunities than females since 2015.\nHowever, black female have a lower percentages of having no education history compared to black males in 2021. Besides, comparing to data in 2020, black females have a huge decrease in percentages of having no education history while black males have a huge increase in percentages of having no education history. Thus, we speculates that the women may continuously having a lower percentages of having no education history while black males may have an opposite trend.\nBesides, we noticed that the percentages are quite small (less than 0.5%), which indicates that the vast majority of individuals have some educational history."
-  },
-  {
-    "objectID": "results.html#parallel-coordinate-plot",
-    "href": "results.html#parallel-coordinate-plot",
-    "title": "3  Results",
-    "section": "3.6 Parallel Coordinate Plot",
-    "text": "3.6 Parallel Coordinate Plot"
-  },
-  {
-    "objectID": "d3graph.html",
-    "href": "d3graph.html",
-    "title": "4  Interactive graph",
-    "section": "",
-    "text": "All Years 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 \n Both Genders Male Female"
+    "text": "2.2 Missing value analysis\n\n\n\n\n\n\n\n\n\n\n\nIn this missing value analysis, we analyze missing values for data sets not limited to “Black only” data sets for a better understanding for patterns in missing values. Missing values across data from all race renders a better idea of why certain data is missing despite missing values from the “Black only” data sets are scarce. Here, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree & 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.\nIn our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).\nIn all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of heatmaps for Male and Female, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.\nThere are also consistent huge proportions of missing values in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years."
   },
   {
     "objectID": "results.html#trend-in-higher-education",
@@ -117,5 +61,19 @@
     "title": "3  Results",
     "section": "3.6 Overall Education Development",
     "text": "3.6 Overall Education Development\n\n3.6.1 Area Plot\n\n\n\n\n\n\n\n\nResearch Question: Overall, how would one best describe the different paths in education development between black males and females over the ten year window?\nWe created two area plots for both gender to explore this research question. For both males and females, the proportion of those with less than a high school education has decreased over the ten years, which indicates an improvement in basic educational attainment. The proportion of individuals with a high school education or some college has remained relatively stable for both genders. The most significant difference appears in the proportion of individuals with a bachelor’s degree or higher. For females, there’s a visible increase in this category, suggesting that more black females are attaining higher education degrees over time. The proportion for males also increases, although the increase does not appear as obvious as that for females.\nFrom these observations, we conclude that both black males and females have made progress in educational attainment over the past decade. However, females has a faster rate of increase in higher education (bachelor’s degree or higher) than males. This could suggest that while both genders are valuing education more, females might be having more success or opportunities in reaching the highest levels of educational attainment.\n\n\n3.6.2 Parallel Coordinate Plot\n\n\n\n\n\n\n\n\n\n\nResearch Question: Overall, how would one best describe the different paths in education development between black males and females over the ten year window?\nWe created two parallel coordinate plots for both gender to explore this research question. From the plot, we can see that both black males and females show an significant increase in number of people attaining higher education (Bachelor’s Degree, Master’s degreer, Doctoral Degree) from 2012 to 2021 for all age groups, indicating that the black community receiving better education opportunities. On the other hand, the lines are mixing for the number of High school graduate, indicating that the non-higher education doesn’t improve over the last decades.\nOn the other hand, notice that the lines for females appear much more scattered compared to males especially for the Master’s degree. Across different age groups, while male across each age group tend to have very similar number of Master’s degree holders, female age groups differ a lot in terms of the number of Master’s degree holders. This is a direct indicator of the different development in higher education in black female as compared to man."
+  },
+  {
+    "objectID": "d3graph.html",
+    "href": "d3graph.html",
+    "title": "4  Interactive graph",
+    "section": "",
+    "text": "All Years 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 \n Both Genders Male Female"
+  },
+  {
+    "objectID": "conclusion.html",
+    "href": "conclusion.html",
+    "title": "5  Conclusion",
+    "section": "",
+    "text": "The analysis of various data visualizations over a decade has provided significant insights into the educational attainment trends among black men and women. The main takeaway is the notable progress in higher education within the black community, with a particular emphasis on the increasing rates of bachelor’s and higher degrees among both genders. However, a critical observation is the consistent and, in some cases, widening gap between black men and women, with women generally achieving higher levels of education.\nFuture directions should focus on understanding and addressing the underlying factors contributing to these gender disparities in educational attainment. Efforts must be directed towards ensuring equitable access to higher education for both black men and women, and exploring the reasons behind the different educational paths. This includes investigating the role of socioeconomic factors, support systems, and institutional barriers. Additionally, the impact of evolving educational methodologies, like online learning, should be further explored, especially in the context of their potential to democratize higher education access. Overall, while progress is evident, there is a clear need for continued support and strategic initiatives to bridge the educational gaps and foster comprehensive advancement in the black community’s educational achievements.\nHowever, there are some considerate limitation to the plots and their respective interpretation. First, the plots have a focus on the black data set, which results in very little vertical comparison such as a comparison between white male and black male. Besides the lack of reference to other races, another significant concern is the challenge in distinguishing correlation from causation; observed trends in educational attainment might not fully reveal the underlying causes, particularly the complex socio-economic and cultural factors at play. Additionally, the temporal scope of the data limits the ability to understand long-term trends, while the impact of external events like the pandemic may not be comprehensively captured. The choice of visualizations and their interpretation can also heavily influence conclusions, potentially overlooking subtleties in the data. Addressing these limitations is crucial for a more accurate and nuanced understanding of educational trends within the black community."
   }
 ]
