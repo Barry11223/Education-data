@@ -183,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Doctoral Degree across Different Age Groups: get all data under the column Doctoral Degree; use heat map where the y-axis shows age groups and x-axis shows years; each square on the heat map represent number of people who have earned a Doctoral degree from a specific age group and year.</p>
 <ol start="3" type="1">
-<li>How do black males and females differ in percentages in education attainment? Can we find patterns from a year to year comparison? (Year to Year Education Attainment Comparison)</li>
+<li>How do black males and females differ in percentages in education attainments? Can we find patterns from a year to year comparison? (Year to Year Education Attainment Comparison)</li>
 </ol>
 <p>Year to Year Education Attainment Comparison: get proportion of above and below Bachelor’s degree for both male and female each year and put together the ten years by using ten simple mosaic plots.</p>
 <ol start="4" type="1">
@@ -191,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Overall Education Development:(a)segment the male and female population into different education levels; present each segment as an area in an area plot. (b)compare data from 2012 and data from 2021 to see how age groups from the two year are distributed differently across different education attainment; use a parallel ordinate plot in which lines are color-coded by years to check for clusters and patterns.</p>
 <ol start="5" type="1">
-<li>During the time of COVID, were there drastic/noticeable patterns in education attainment? (COVID Impact on Education Attainment)</li>
+<li>During the time of COVID, were there drastic/noticeable patterns in education attainments? (COVID Impact on Education Attainment)</li>
 </ol>
 <p>COVID Impact on Education Attainment: calculate proportion of education level above and below Bachelor’s degree for years before COVID (2012-2019) and after COVID(2020-2021); plot proportion on a mosaic plot</p>
 <ol start="6" type="1">
@@ -212,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="data_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Here, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree &amp; 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.</p>
+<p>In this missing value analysis, we analyze missing values for data sets not limited to “Black only” data sets for a better understanding for patterns in missing values. Missing values across data from all race renders a better idea of why certain data is missing despite missing values from the “Black only” data sets is scarce. Here, we provided three heatmaps: “Missing Data Heatmap - Both Sexes”, “Missing Data Heatmap - Male”, “Missing Data Heatmap - Female.” Each heatmap summarize the missing data from all 60 data frame with the following logic: if there is a missing value in one dataframe in a particular entry (Doctoral Degree &amp; 18 to 24 years), the heatmap will add 1, and we loop through all 60 data frame to add up the number of missing value for each entry. To further explain, each heatmap contains the missing values from 2012 to 2021 for all races in each entry.</p>
 <p>In our circumstances, a missing value may indicate that the Bureau didn’t collect any data of a particular entry. Another case is that number of people in an entry is less than 1000, so that the Bureau didn’t give a value for that entry because the entry less than 1000 will have a value of zero (the units in the original table is 1000).</p>
 <p>In all three heatmaps, we can observe that there are lots of missing values for Doctoral degree and Professional degree for the year group of 18 to 24. This is reasonable because doctoral degree and professional degree took longer time to be granted, so that only a small group of people (less than 1000), which may produce a missing data. Besides, there are a small proportion of missing values in the up right corner of heatmaps for Male and Female, which is also reasonable because fewer people in the period of World War 2 may get a Doctoral or Professional Degree.</p>
 <p>There are also consistent huge proportions of missing values in area below 12th grade for all age groups, indicating that a lot of people didn’t have a chance to go to high school across all years.</p>

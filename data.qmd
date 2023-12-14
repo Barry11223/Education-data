@@ -29,7 +29,7 @@ Trend in No Education History:similarly sum up the column of none education as n
 
 Doctoral Degree across Different Age Groups: get all data under the column Doctoral Degree; use heat map where the y-axis shows age groups and x-axis shows years; each square on the heat map represent number of people who have earned a Doctoral degree from a specific age group and year. 
 
-3. How do black males and females differ in percentages in education attainment? Can we find patterns from a year to year comparison? (Year to Year Education Attainment Comparison)
+3. How do black males and females differ in percentages in education attainments? Can we find patterns from a year to year comparison? (Year to Year Education Attainment Comparison)
 
 Year to Year Education Attainment Comparison: get proportion of above and below Bachelor's degree for both male and female each year and put together the ten years by using ten simple mosaic plots. 
 
@@ -37,7 +37,7 @@ Year to Year Education Attainment Comparison: get proportion of above and below 
 
 Overall Education Development:(a)segment the male and female population into different education levels; present each segment as an area in an area plot. (b)compare data from 2012 and data from 2021 to see how age groups from the two year are distributed differently across different education attainment; use a parallel ordinate plot in which lines are color-coded by years to check for clusters and patterns. 
 
-5. During the time of COVID, were there drastic/noticeable patterns in education attainment? (COVID Impact on Education Attainment)
+5. During the time of COVID, were there drastic/noticeable patterns in education attainments? (COVID Impact on Education Attainment)
 
 COVID Impact on Education Attainment: calculate proportion of education level above and below Bachelor's degree for years before COVID (2012-2019) and after COVID(2020-2021); plot proportion on a mosaic plot
 

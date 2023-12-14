@@ -213,7 +213,7 @@ ggplot(education_long, aes(x = Gender, y = Count, fill = `Education Level`)) +
   facet_wrap(~Year)  # Optional: add facets for each year if desired
 ```
 
-Research Question: How does black males and females differ in percentages in education attainment? Can we find patterns from a year to year comparison?
+Research Question: How does black males and females differ in percentages in education attainments? Can we find patterns from a year to year comparison?
 
 We created a group of mosaic plot for each year to explore this research question. From the plot, we observed that the proportion of individuals with below a bachelor's degree is higher than those with a bachelor's degree or higher for both genders from 2012 to 2021. This indicates that the majority within both gender groups have not attained a bachelor's level education.
 
@@ -257,7 +257,7 @@ ggplot(education_data, aes(x = Period, fill = `Education Level`, y = Count)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-Research Question: During the time of COVID, were there drastic/noticeable pattern in education attainment?
+Research Question: During the time of COVID, were there drastic/noticeable pattern in education attainments?
 
 We created a mosaic plot between "Proportion of Education Attainment" and "Pandemic Period" to explore this research question. For this question, we focused on the age groups of "18 to 24 years", "25 to 29 years", and "30 to 34 years" to better understand the impact of Covid on the education attainment.
 

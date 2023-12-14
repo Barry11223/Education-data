@@ -13,7 +13,7 @@ Some interesting questions we seek to answer through our data visualizations:
 
 4. Overall, how would one best describe the different paths in education development between black males and females over the ten year window? (Overall Education Development)
 
-5. During the time of COVID, were there drastic/noticeable patterns in education attainment? (COVID Impact on Education Attainment)
+5. During the time of COVID, were there drastic/noticeable patterns in education attainments? (COVID Impact on Education Attainment)
 
 6. What do our plots implicate for the socio-economic dynamics of the black population of the United States? Or what potential policy direction is hinted at if there is any?
 
