@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
 
   // Set the dimensions of the canvas / graph
-  const margin = {top: 20, right: 20, bottom: 70, left: 40},
-        width = 600 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+  const margin = {top: 80, right: 80, bottom: 80, left: 80},
+        width = 700 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
   // Set the ranges
   const x0 = d3.scaleBand().rangeRound([0, width]).paddingInner(0.1);
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .attr("text-anchor", "middle")
     .attr("x", width / 2)
     .attr("y", 0 - (margin.top / 2))
-    .attr("font-size", "13px") // Adjust font size as needed
+    .attr("font-size", "20px") // Adjust font size as needed
     .attr("font-weight", "bold")
     .text("Percentage of People with No Education History by Year and Gender");
 
@@ -110,8 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
   svg.append("text")
     .attr("text-anchor", "middle")
     .attr("x", width / 2)
-    .attr("y", height + margin.bottom - 10) // Adjust the position based on your margin
-    .attr("font-size", "12px") // Adjust font size as needed
+    .attr("y", height + margin.bottom - 40) // Adjust the position based on your margin
+    .attr("font-size", "16px") // Adjust font size as needed
     .text("Year");
 
   // Add Y axis title
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em") // To align the text properly
-    .attr("font-size", "12px") // Adjust font size as needed
+    .attr("font-size", "16px") // Adjust font size as needed
     .text("Percentage of People with No Education History");
 
 // Set the x0 domain to include all years, which makes it static
