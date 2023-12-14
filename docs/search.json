@@ -59,14 +59,21 @@
     "objectID": "results.html#bar-plot",
     "href": "results.html#bar-plot",
     "title": "3  Results",
-    "section": "3.6 Bar Plot",
-    "text": "3.6 Bar Plot"
+    "section": "3.2 Bar Plot",
+    "text": "3.2 Bar Plot"
   },
   {
     "objectID": "results.html#parallel-coordinate-plot",
     "href": "results.html#parallel-coordinate-plot",
     "title": "3  Results",
-    "section": "3.7 Parallel Coordinate Plot",
-    "text": "3.7 Parallel Coordinate Plot"
+    "section": "3.6 Parallel Coordinate Plot",
+    "text": "3.6 Parallel Coordinate Plot"
+  },
+  {
+    "objectID": "d3graph.html",
+    "href": "d3graph.html",
+    "title": "4  Interactive graph",
+    "section": "",
+    "text": "All Years 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 \n Both Genders Male Female"
   }
 ]
