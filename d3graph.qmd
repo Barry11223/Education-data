@@ -31,3 +31,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
+
+In the previous section, we found from the grouped bar chart that black males have higher percentages of having no education history compared to black females from 2012 to 2014. However, from 2015 to 2020, black female have higher percentages of having no education history compared to black males. 
+
+In this part, we created an interactive D3 graph for the grouped bar chart we discussed in the last section. In the webpage, the audience can remove bars from the plot for any years and gender. The audience can engage by selecting both the years and the gender group they want to remove. They can remove Male, Female or Both Genders. Notice that the audience can select multiple years to remove. If they select Year to be 2012 and 2013 and gender to be Male for example, the interactive plot will not show bars for Male in 2012 and 2013 in the new plot.
+
+Our goal here is to give the audience the freedom to select the years and gender and saw the corresponding trends for smaller groups of bars. To further explain, some audience may only want to see the bar from 2015 to 2020 and they can achieve this by following the instructions above. By doing so, the audience may gain a better understanding of the percentage of black male and female individuals with no education changed over the decade.
+
+
